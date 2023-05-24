@@ -10,11 +10,27 @@ const cubes = [
         id: 'iwaf46oli1rc628',
         name: 'Rubik\'s cube Jigsaw',
         imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTB_5sx4nmi6GgzTJ-HHnaSFTzWma3xB33iDg&usqp=CAU',
-        difficultyLevel: 3
+        difficultyLevel: 6
     },
 ];
 
-exports.getAll = () => cubes.slice();
+exports.getAll = (search, from, to) => {
+    let result = cubes.slice();
+
+    if (search) {
+        result = cubes.filter(x => x.name.toLowerCase().includes(search.toLowerCase()));
+    }
+
+    if (from) {
+        result = cubes.filter(x => x.difficultyLevel >= Number(from));
+    }
+
+    if (to) {
+        result = cubes.filter(x => x.difficultyLevel <= Number(to));
+    }
+
+    return result;
+};
 
 exports.getOne = (cubeId) => cubes.find(x => x.id === cubeId);
 

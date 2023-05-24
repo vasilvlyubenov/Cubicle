@@ -8,6 +8,11 @@ router.get('/create', (req, res) => {
 
 router.get('/details/:cubeId', (req, res) => {
     const cube = cubeService.getOne(req.params.cubeId);
+
+    if (!cube) {
+        return res.redirect('/404');
+    }
+    
     res.render('details', { cube });
 });
 

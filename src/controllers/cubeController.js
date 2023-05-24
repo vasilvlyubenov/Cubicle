@@ -6,6 +6,11 @@ router.get('/create', (req, res) => {
     res.render('create');
 });
 
+router.get('/details/:cubeId', (req, res) => {
+    const cube = cubeService.getOne(req.params.cubeId);
+    res.render('details', { cube });
+});
+
 router.post('/create', (req, res) => {
     const { name, description, imageUrl, difficultyLevel } = req.body;
 

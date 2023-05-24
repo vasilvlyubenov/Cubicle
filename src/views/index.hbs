@@ -8,11 +8,8 @@
     <input type="submit" value="search">
   </form>
   {{#each cubes}}
-  <div class="cube">
-    <img class="cube" src="{{cubes.imageUrl}}">
-    <p class="name">{{name}}</p>
-    <p><span>Difficulty level:</span> {{cubes.difficultyLevel}}</p>
-    <a class="btn" href="/details/{{cubes.id}}">Details</a>
-  </div>
+    {{>cube}}
+  {{else}}
+  <p>There are no cubes!</p>
   {{/each}}
 </main>

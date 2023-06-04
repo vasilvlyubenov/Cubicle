@@ -6,8 +6,8 @@ router.get('/create', (req, res) => {
     res.render('create');
 });
 
-router.get('/details/:cubeId', (req, res) => {
-    const cube = cubeService.getOne(req.params.cubeId);
+router.get('/details/:cubeId', async (req, res) => {
+    const cube = await cubeService.getOne(req.params.cubeId).lean();
 
     if (!cube) {
         return res.redirect('/404');
@@ -16,10 +16,10 @@ router.get('/details/:cubeId', (req, res) => {
     res.render('details', { cube });
 });
 
-router.post('/create', (req, res) => {
+router.post('/create', async (req, res) => {
     const { name, description, imageUrl, difficultyLevel } = req.body;
 
-    cubeService.create({ name, description, imageUrl, difficultyLevel: Number(difficultyLevel) });
+    await cubeService.create({ name, description, imageUrl, difficultyLevel: Number(difficultyLevel) });
     res.redirect('/');
 });
 

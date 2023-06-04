@@ -1,13 +1,15 @@
 const router = require('express').Router();
 
+const accessoryService = require('../services/accessoryService');
+
 router.get('/create', (req, res) => {
     res.render('accessory/create');
 });
 
-router.post('/create', (req, res) => {
-    const body = req.body;
+router.post('/create', async (req, res) => {
+    const {name, description, imageUrl} = req.body;
 
-    //TODO
+    await accessoryService.create({name, description, imageUrl});
 
     res.redirect('/');
 });

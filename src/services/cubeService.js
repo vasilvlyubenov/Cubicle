@@ -34,3 +34,5 @@ exports.attachAccessory = (cubeId, accessoryId) => {
 };
 
 exports.delete = (cubeId) => Cube.findByIdAndDelete(cubeId);
+
+exports.edit = (cubeId, cubeData) => Cube.findByIdAndUpdate(cubeId, cubeData);

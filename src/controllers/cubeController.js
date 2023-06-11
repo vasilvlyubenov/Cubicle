@@ -45,12 +45,17 @@ router.post('/:cubeId/attach-accessory', async (req, res) => {
     res.redirect(`/cubes/details/${cubeId}`);
 });
 
-router.get('/:cubeId/edit', (req, res) => {
-    res.render('cube/edit');
+router.get('/:cubeId/edit', async (req, res) => {
+    const cube = await cubeService.getOne(req.params.cubeId).lean();
+    
+    res.render('cube/edit', { cube });
 });
 
-router.post('/:cubeId/edit', (req, res) => {
+router.post('/:cubeId/edit', async (req, res) => {
+    const {name, description, imageUrl, difficultyLevel} = req.body;
+    await cubeService.edit(req.params.cubeId, {name, description, imageUrl, difficultyLevel});
 
+    res.redirect(`/cubes/details/${req.params.cubeId}`);
 });
 
 router.get('/:cubeId/delete', async (req, res) => {

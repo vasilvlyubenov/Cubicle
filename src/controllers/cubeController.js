@@ -2,10 +2,11 @@ const router = require('express').Router();
 
 const cubeService = require('../services/cubeService');
 const accessoryService = require('../services/accessoryService');
+const Cube = require('../models/Cube');
 
 router.get('/create', (req, res) => {
     console.log(req.user);
-    res.render('create');
+    res.render('cube/create');
 });
 
 router.get('/details/:cubeId', async (req, res) => {
@@ -14,8 +15,8 @@ router.get('/details/:cubeId', async (req, res) => {
     if (!cube) {
         return res.redirect('/404');
     }
-    
-    res.render('details', { cube });
+
+    res.render('cube/details', { cube });
 });
 
 router.post('/create', async (req, res) => {
@@ -43,5 +44,19 @@ router.post('/:cubeId/attach-accessory', async (req, res) => {
 
     res.redirect(`/cubes/details/${cubeId}`);
 });
+
+router.get('/:cubeId/edit', (req, res) => {
+    res.render('cube/edit');
+});
+
+router.post('/:cubeId/edit', (req, res) => {
+
+});
+
+router.get('/:cubeId/delete', async (req, res) => {
+    const cube = await cubeService.getOne(req.params.cubeId).lean();
+    res.render('cube/delete', { cube });
+});
+
 
 module.exports = router;

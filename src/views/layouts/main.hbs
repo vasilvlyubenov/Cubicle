@@ -26,7 +26,12 @@
         <li>{{user.username}}</li>
       </ul>
     </header>
-    {{{body}}}
+    {{#each errorMessages}}
+  <div id="notifications">
+      <p id="notification-message">{{this}}</p>
+  </div>
+  {{/each}}
+  {{{body}}}
   </div>
   <footer>@Cubicle: Exercise for Express.js and Handlebars</footer>
 </body>

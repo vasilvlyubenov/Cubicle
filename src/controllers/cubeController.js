@@ -11,12 +11,14 @@ router.get('/create', (req, res) => {
 
 router.get('/details/:cubeId', async (req, res) => {
     const cube = await cubeService.getOne(req.params.cubeId).lean();
-
+    
     if (!cube) {
         return res.redirect('/404');
     }
 
-    res.render('cube/details', { cube });
+    const isOwner = cube.owner?.toString() === req.user._id;
+
+    res.render('cube/details', { cube, isOwner });
 });
 
 router.post('/create', async (req, res) => {
